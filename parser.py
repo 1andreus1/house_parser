@@ -1,3 +1,4 @@
+import time
 from math import ceil
 from typing import Optional
 
@@ -174,7 +175,7 @@ class Parser(ParserRequests):
 
             address = invest_info.clean_address
             url = self.get_url_by_address(address)
-
+            time.sleep(5)
             if url:
                 text_page = self.get_page_flatinfo(url)
                 page = HtmlParser(text_page)
