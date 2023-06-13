@@ -62,7 +62,7 @@ class Parser(ParserRequests):
         end_page_number = self._get_end_page_number()
         all_tenders = []
 
-        for page_number in range(1, end_page_number):
+        for page_number in range(1, 2):
             tenders_found = self._get_page_data(page_number)
             cleaned_tenders = self.clear_entities(tenders_found)
             all_tenders.extend(cleaned_tenders)
@@ -180,6 +180,7 @@ class Parser(ParserRequests):
                 page = HtmlParser(text_page)
                 page_dict = page.parse()
                 flat_info = FlatInfo.parse_obj(page_dict)
+                flat_info.flatinfo_url = url
 
                 tender_obj = TenderBuilder.build(flat_info, invest_info)
                 return tender_obj

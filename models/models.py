@@ -87,13 +87,14 @@ class FlatInfo(BaseModel):
     metro_color: Optional[str]
 
     ceiling_height: Optional[float]
+    flatinfo_url: Optional[str]
 
     @validator('ceiling_height', always=True)
     def convert_value_to_meters(cls, v, values):
         height = values.get('ceiling_height_str')
         if height is None:
             return None
-        return convert_to_meters(height)
+        return int(height.split()[0])
 
 
 class Tender(BaseModel):
@@ -125,6 +126,7 @@ class Tender(BaseModel):
     floors_type: Optional[str]
     walls_type: Optional[str]
     metro_color: Optional[str]
+    flatinfo_url: Optional[str]
 
 
 class TenderBuilder:
@@ -157,5 +159,6 @@ class TenderBuilder:
             floors_type=flatinfo.floors_type,
             walls_type=flatinfo.walls_type,
             metro_color=flatinfo.metro_color,
+            flatinfo_url=flatinfo.flatinfo_url,
         )
         return tender
