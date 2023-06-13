@@ -85,6 +85,7 @@ class FlatInfo(BaseModel):
     metro_station: Optional[str]
     metro_distance: Optional[int]
     metro_color: Optional[str]
+    station_type: Optional[str]
 
     ceiling_height: Optional[float]
     flatinfo_url: Optional[str]
@@ -127,6 +128,7 @@ class Tender(BaseModel):
     walls_type: Optional[str]
     metro_color: Optional[str]
     flatinfo_url: Optional[str]
+    station_type: Optional[str]
 
 
 class TenderBuilder:
@@ -160,5 +162,6 @@ class TenderBuilder:
             walls_type=flatinfo.walls_type,
             metro_color=flatinfo.metro_color,
             flatinfo_url=flatinfo.flatinfo_url,
+            station_type=flatinfo.station_type
         )
         return tender

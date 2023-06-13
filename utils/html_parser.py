@@ -49,6 +49,27 @@ class HtmlParserBase:
         name = metro.next_sibling.text.strip()
         self.result_dict['metro_station'] = name
 
+    def get_metro_type(self, metro: BeautifulSoup):
+        use_tag = metro.find('use')
+        if not use_tag:
+            return
+
+        icon_link = use_tag.get('xlink:href')
+        if not icon_link:
+            return
+
+        icon_link_splited = icon_link.split('#')
+        if len(icon_link_splited) < 2:
+            return
+
+        station_type_splited = \
+            icon_link_splited[-1].split('-')
+        if len(station_type_splited) < 2:
+            return
+
+        station_type = station_type_splited[0]
+        self.result_dict['station_type'] = station_type
+
     def get_metro_color(
             self,
             metro: BeautifulSoup
@@ -131,6 +152,7 @@ class HtmlParser(HtmlParserBase):
         self.get_metro_distance(metro)
         self.get_metro_name(metro_label)
         self.get_metro_color(metro_label)
+        self.get_metro_type(metro_label)
 
     def parse_row(self, row):
         span_tag = row.find(

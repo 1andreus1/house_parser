@@ -11,15 +11,8 @@ if __name__ == '__main__':
     for tender in tenders:
         print(
             tender.flatinfo_url,
-            tender.city,
-            tender.district,
-            tender.region,
             tender.metro_station,
             tender.metro_distance,
-            tender.building_year,
-            tender.renovation,
-            tender.ceiling_height,
-            tender.floors_type,
-            tender.walls_type,
             tender.metro_color,
+            tender.station_type,
         )
