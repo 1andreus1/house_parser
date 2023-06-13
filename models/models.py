@@ -6,7 +6,7 @@ from typing import Optional, List
 from camelsnake import snake_to_camel
 from pydantic import BaseModel, validator
 
-from utils.utils import clean_address, convert_to_meters
+from utils.utils import clean_address
 
 
 class BaseModelConfig(BaseModel):
