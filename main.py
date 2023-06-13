@@ -9,10 +9,4 @@ if __name__ == '__main__':
     tenders = parser.run(params)
 
     for tender in tenders:
-        print(
-            tender.flatinfo_url,
-            tender.metro_station,
-            tender.metro_distance,
-            tender.metro_color,
-            tender.station_type,
-        )
+        print(tender)
