@@ -71,6 +71,14 @@ class InvestInfo(BaseModelConfig):
         else:
             return None
 
+    @validator('rooms_count', pre=True)
+    def rooms_must_be_zero(cls, v, values):
+        object_type = values.get('object_type_name')
+        if isinstance(object_type, str):
+            if 'комната' in object_type.lower():
+                return 0
+        return v
+
 
 class FlatInfo(BaseModel):
     city: Optional[str]
