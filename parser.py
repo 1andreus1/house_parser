@@ -1,10 +1,12 @@
 from math import ceil
 from typing import Optional
 
+from exceptions import BadAddressError
 from models.filter_models import FilterParams
 from models.models import InvestInfo, FlatInfo, TenderBuilder
 from utils.html_parser import HtmlParser
 from utils.utils import HTTPMethod, DecodeTo, get_url
+from logger import log
 
 
 class ParserRequests:
@@ -166,6 +168,8 @@ class Parser(ParserRequests):
         url = res.get('url')
         if url:
             return url
+        else:
+            raise BadAddressError(address)
 
     def construct_tender(self, invest):
         try:
@@ -186,9 +190,13 @@ class Parser(ParserRequests):
         if address in self.address_cache:
             flat_info = self.address_cache[address]
         else:
-            url = self.get_url_by_address(address)
-            flat_info = self.get_flatinfo_by_url(url)
-            self.address_cache[address] = flat_info
+            try:
+                url = self.get_url_by_address(address)
+                flat_info = self.get_flatinfo_by_url(url)
+                self.address_cache[address] = flat_info
+            except BadAddressError:
+                log.error('Ошибка получения flatinfo.')
+                flat_info = FlatInfo()
 
         return flat_info
 
